@@ -1,0 +1,27 @@
+services:
+  manager:
+    build:
+      context: ./manager
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./manager:/app
+      - /app/node_modules
+      - ./data:/data
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+
+  commander:
+    build:
+      context: ./commander
+      dockerfile: Dockerfile
+    volumes:
+      - ./commander:/app
+      - /app/node_modules
+      - ./data:/app/data
+    environment:
+      - NODE_ENV=development
+      - DB_PATH=/app/data/commands.db
+    command: tail -f /dev/null

@@ -1,0 +1,9 @@
+services:
+  db-init:
+    build:
+      context: .
+      dockerfile: Dockerfile.init
+    volumes:
+      - ./data:/data
+      - ./scripts:/app/scripts
+    command: sh -c "chmod +x /app/scripts/init-db.sh && /app/scripts/init-db.sh"
