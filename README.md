@@ -15,11 +15,9 @@
 ## 環境
 - Docker, docker-compose
 - Claude-3.7-sonnet thinking
-- Node.js v18以上（推奨：LTS版 v18.x.x または v20.x.x）
 
 * Claude-3.7-sonnet thinking以外だと、コマンド入力を認識しないケースがあり、安定しません
 * 基本はClaude-3.7-sonnet thinkingをおすすめします
-* MCPでnpm run devとして実行する場合は、Node.js v18以上が必要です
 
 ## 起動
 
@@ -115,19 +113,19 @@ Cursor向けの設定例:
 {
   "mcpServers": {
     "cmd-server": {
-      "command": "npm",
+      "command": "docker",
       "args": [
-        "run dev --prefix [プロジェクトへのフルパス]/commander-mcp/commander"
+        "compose -f [プロジェクトのフルパス]/compose.yml run --rm commander npm run dev"
       ],
       "env": {
-        "DB_PATH": "[プロジェクトへのフルパス/commander-mcp/data/commands.db"
+        "DB_PATH": "/app/data/commands.db"
       }
     }
   }
 }
 ```
 
-※パスは環境に合わせて適宜変更してください。
+※パスは環境に合わせて適宜変更してください。特に`compose.yml`のパスは、プロジェクトのフルパスを指定する必要があります。
 
 データベースにはサンプルとして`hello_world`コマンドがあらかじめ登録されています。MCPサーバーの設定完了後、以下のコマンドを実行して動作確認してみましょう：
 
@@ -148,11 +146,9 @@ Can be used as a single prompt or as a workflow by combining multiple commands.
 ## Environment
 - Docker, docker-compose
 - Claude-3.7-sonnet thinking
-- Node.js v18 or higher (recommended: LTS versions v18.x.x or v20.x.x)
 
 * Models other than Claude-3.7-sonnet thinking may not recognize command inputs consistently
 * Claude-3.7-sonnet thinking is recommended for stability
-* When running as npm run dev via MCP, Node.js v18 or higher is required
 
 ## Getting Started
 
@@ -248,12 +244,12 @@ Add the following to the `~/.cursor/mcp.json` file:
 {
   "mcpServers": {
     "cmd-server": {
-      "command": "npm",
+      "command": "docker",
       "args": [
-        "run dev --prefix [full_path_to_project]/commander-mcp/commander"
+        "compose -f [full_path_to_project]/compose.yml run --rm commander npm run dev"
       ],
       "env": {
-        "DB_PATH": "[full_path_to_project]/commander-mcp/data/commands.db"
+        "DB_PATH": "/app/data/commands.db"
       }
     }
   }
